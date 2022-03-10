@@ -8,8 +8,7 @@
 name: OpenWrt-CI
 
 on:
-  schedule:
-    - cron: 0 20 * * *
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -50,13 +49,14 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Generate configuration file
-        run: make defconfig
+#       - name: Generate configuration file
+#         run: make defconfig
 
       - name: Make download
         run: |
           make download -j8
           find dl -size -1024c -exec rm -f {} \;
+          sed -i "s/OpenWrt /$(date +%Y.%m.%d) by zyyme /g" package/lean/default-settings/files/zzz-default-settings
 
       - name: Compile firmware
         run: |
