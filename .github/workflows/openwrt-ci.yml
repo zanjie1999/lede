@@ -31,7 +31,6 @@ jobs:
 
       - name: Checkout
         run: |
-          pwd
           git clone https://github.com/zanjie1999/lede `pwd`
 
       - name: Old Config file
@@ -50,10 +49,6 @@ jobs:
          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
          echo 'CONFIG_PACKAGE_luci-theme-argon=y' >> .config
          sed -i "s/OpenWrt /$(date +%Y.%m.%d) by zyyme /g" package/lean/default-settings/files/zzz-default-settings
-
-      - uses: actions/checkout@v2
-      - name: Setup Debug Session
-        uses: csexton/debugger-action@master
 
       - name: Config file
         run: ls -l ./.config && cat ./.config
