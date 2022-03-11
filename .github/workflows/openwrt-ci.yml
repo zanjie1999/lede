@@ -34,14 +34,14 @@ jobs:
           git clone https://github.com/zanjie1999/lede
           cd lede
 
+      - name: Old Config file
+        run: ls -l ./.config && cat ./.config
+
       - name: Update feeds
         run: |
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          
-      - name: Old Config file
-        run: ls -l ./.config && cat ./.config
 
       - name: Generate configuration file
         run: |
