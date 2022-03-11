@@ -31,8 +31,7 @@ jobs:
 
       - name: Checkout
         run: |
-          git clone https://github.com/zanjie1999/lede
-          cd lede
+          git clone https://github.com/zanjie1999/lede ./
 
       - name: Old Config file
         run: ls -l ./.config && cat ./.config
