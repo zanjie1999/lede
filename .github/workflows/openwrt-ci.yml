@@ -34,7 +34,11 @@ jobs:
           git clone https://github.com/zanjie1999/lede `pwd`
 
       - name: Old Config file
-        run: ls -l ./.config && cat ./.config
+        run: |
+          ls -l ./.config
+          cat ./.config
+          cp .config sparkle.config
+          
 
       - name: Update feeds
         run: |
@@ -44,6 +48,7 @@ jobs:
 
       - name: Generate configuration file
         run: |
+         cp sparkle.config .config
          #make oldconfig
          rm -rf package/lean/luci-theme-argon
          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
