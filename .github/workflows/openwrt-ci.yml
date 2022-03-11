@@ -51,7 +51,7 @@ jobs:
 
       - name: Generate configuration file
         run: |
-         make defconfig
+         make oldconfig
          sed -i "s/OpenWrt /$(date +%Y.%m.%d) by zyyme /g" package/lean/default-settings/files/zzz-default-settings
 
       - name: Make download
