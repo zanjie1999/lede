@@ -48,6 +48,9 @@ jobs:
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          
+      - name: Old Config file
+        run: ls -l ./.config && cat ./.config
 
       - name: Generate configuration file
         run: |
@@ -56,6 +59,9 @@ jobs:
          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
          echo 'CONFIG_PACKAGE_luci-theme-argon=y' >> .config
          sed -i "s/OpenWrt /$(date +%Y.%m.%d) by zyyme /g" package/lean/default-settings/files/zzz-default-settings
+
+      - name: Config file
+        run: ls -l ./.config && cat ./.config
 
       - name: Make download
         run: |
