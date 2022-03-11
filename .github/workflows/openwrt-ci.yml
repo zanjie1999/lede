@@ -24,10 +24,15 @@ jobs:
 
     steps:
 
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#         with:
+#           ref: master
+
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: master
+        run: |
+          git clone https://github.com/zanjie1999/lede
+          cd lede
 
       - name: Space cleanup
         env:
