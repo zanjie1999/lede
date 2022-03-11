@@ -52,6 +52,9 @@ jobs:
       - name: Generate configuration file
         run: |
          make oldconfig
+         rm -rf package/lean/luci-theme-argon
+         git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
+         echo 'CONFIG_PACKAGE_luci-theme-argon=y' >> .config
          sed -i "s/OpenWrt /$(date +%Y.%m.%d) by zyyme /g" package/lean/default-settings/files/zzz-default-settings
 
       - name: Make download
@@ -82,7 +85,7 @@ jobs:
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
           mkdir -p ./configFile
-          cp -rf ./.config ./configFile/
+          cp -rf ./.config ./artifact/buildinfo/
           
 
       - name: Deliver buildinfo
@@ -102,12 +105,6 @@ jobs:
         with:
           name: OpenWrt_firmware
           path: ./bin/targets/
-          
-      - name: ConfigFile
-        uses: actions/upload-artifact@v2
-        with:
-          name: OpenWrt_firmware
-          path: ./configFile/
   
 
       - name: Upload release asset
